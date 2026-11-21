@@ -110,7 +110,7 @@ func refresh() -> void:
 		var needs := []
 		for id in r.inputs:
 			needs.append("%d %s (%d)" % [r.inputs[id], ItemDB.item(id).display_name, game.inventory.count_of(id)])
-		btn.text = "Craft %s  ←  %s" % [ItemDB.item(r.output_id).display_name, ", ".join(needs)]
+		btn.text = "Craft %s   (uses %s)" % [ItemDB.item(r.output_id).display_name, ", ".join(needs)]
 		btn.disabled = not game.inventory.can_craft(r)
 		btn.pressed.connect(func():
 			if game.inventory.craft(r):
