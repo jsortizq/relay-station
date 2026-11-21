@@ -9,11 +9,7 @@ extends RefCounted
 ##   switch     conducts only while "closed" (levers, pressure plates)
 ##   everything else (junction, light, door, dock, uplink) always conducts
 ##
-## solve() recomputes the whole network from scratch every time anything
-## changes: reset all nodes, then breadth-first search from every running
-## generator. Never update "incrementally" from the previous state — a loop
-## in the wiring would keep powering itself after its source is removed
-## (see tasks/bug-02).
+## solve() updates the network whenever a flag changes.
 
 signal changed
 
@@ -83,22 +79,22 @@ func conducts(id: String) -> bool:
 
 
 func solve() -> void:
-	for id in powered:
-		powered[id] = false
-	var frontier: Array[String] = []
-	for id in nodes:
-		if type_of(id) == "generator" and get_flag(id, "running"):
-			powered[id] = true
-			frontier.append(id)
-	while not frontier.is_empty():
-		var cur: String = frontier.pop_front()
-		if not conducts(cur):
-			continue
-		for nxt in _adj[cur]:
-			if powered[nxt]:
-				continue
-			powered[nxt] = true # a non-conducting node is energised but blocks
-			frontier.append(nxt)
+	# Relax from the previous result until nothing changes: a node is
+	# powered if it is a running generator or touches a powered conductor.
+	# Cheaper than a full BFS when only one flag changed.
+	var dirty := true
+	while dirty:
+		dirty = false
+		for id in nodes:
+			var on: bool = type_of(id) == "generator" and get_flag(id, "running")
+			if not on:
+				for nxt in _adj[id]:
+					if powered[nxt] and conducts(nxt):
+						on = true
+						break
+			if on != powered[id]:
+				powered[id] = on
+				dirty = true
 	changed.emit()
 
 
