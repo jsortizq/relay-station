@@ -1,0 +1,248 @@
+{
+  "name": "Relay Station Kappa-7",
+  "cell_size": 2.0,
+  "wall_height": 3.0,
+  "map": [
+    "####################",
+    "#........#.........#",
+    "#........#.........#",
+    "#........D.........#",
+    "#..P.....#.........#",
+    "#........#.........#",
+    "##############D#####",
+    "##########.......###",
+    "##########.......###",
+    "####################"
+  ],
+  "power": {
+    "nodes": [
+      {
+        "id": "gen",
+        "type": "generator",
+        "flags": {
+          "running": false
+        }
+      },
+      {
+        "id": "relay_a",
+        "type": "relay",
+        "flags": {
+          "intact": false
+        }
+      },
+      {
+        "id": "light_a",
+        "type": "light"
+      },
+      {
+        "id": "door_1",
+        "type": "door"
+      },
+      {
+        "id": "light_b1",
+        "type": "light"
+      },
+      {
+        "id": "light_b2",
+        "type": "light"
+      },
+      {
+        "id": "light_b3",
+        "type": "light"
+      },
+      {
+        "id": "light_b4",
+        "type": "light"
+      },
+      {
+        "id": "sec_switch",
+        "type": "switch",
+        "flags": {
+          "closed": true
+        }
+      },
+      {
+        "id": "dock",
+        "type": "dock"
+      },
+      {
+        "id": "plate",
+        "type": "switch",
+        "flags": {
+          "closed": false
+        }
+      },
+      {
+        "id": "door_2",
+        "type": "door"
+      },
+      {
+        "id": "light_c",
+        "type": "light"
+      },
+      {
+        "id": "uplink",
+        "type": "uplink"
+      }
+    ],
+    "edges": [
+      ["gen", "light_a"],
+      ["gen", "relay_a"],
+      ["relay_a", "door_1"],
+      ["relay_a", "light_b1"],
+      ["light_b1", "light_b2"],
+      ["light_b2", "light_b3"],
+      ["light_b3", "light_b4"],
+      ["light_b4", "light_b1"],
+      ["light_b2", "sec_switch"],
+      ["sec_switch", "dock"],
+      ["light_b3", "plate"],
+      ["plate", "door_2"],
+      ["plate", "light_c"],
+      ["light_c", "uplink"]
+    ]
+  },
+  "entities": [
+    {
+      "type": "generator",
+      "id": "generator",
+      "cell": [2, 1],
+      "node": "gen"
+    },
+    {
+      "type": "workbench",
+      "id": "workbench",
+      "cell": [6, 1]
+    },
+    {
+      "type": "relay",
+      "id": "relay_a",
+      "cell": [8, 4],
+      "node": "relay_a"
+    },
+    {
+      "type": "light",
+      "id": "light_a",
+      "cell": [4, 3],
+      "node": "light_a"
+    },
+    {
+      "type": "light",
+      "id": "light_b1",
+      "cell": [11, 2],
+      "node": "light_b1"
+    },
+    {
+      "type": "light",
+      "id": "light_b2",
+      "cell": [17, 2],
+      "node": "light_b2"
+    },
+    {
+      "type": "light",
+      "id": "light_b3",
+      "cell": [17, 5],
+      "node": "light_b3"
+    },
+    {
+      "type": "light",
+      "id": "light_b4",
+      "cell": [11, 5],
+      "node": "light_b4"
+    },
+    {
+      "type": "light",
+      "id": "light_c",
+      "cell": [12, 7],
+      "node": "light_c"
+    },
+    {
+      "type": "door",
+      "id": "door_1",
+      "cell": [9, 3],
+      "node": "door_1"
+    },
+    {
+      "type": "door",
+      "id": "door_2",
+      "cell": [14, 6],
+      "node": "door_2"
+    },
+    {
+      "type": "lever",
+      "id": "sec_lever",
+      "cell": [18, 1],
+      "node": "sec_switch"
+    },
+    {
+      "type": "dock",
+      "id": "drone_dock",
+      "cell": [18, 4],
+      "node": "dock"
+    },
+    {
+      "type": "plate",
+      "id": "cargo_plate",
+      "cell": [14, 5],
+      "node": "plate"
+    },
+    {
+      "type": "uplink",
+      "id": "uplink",
+      "cell": [15, 8],
+      "node": "uplink"
+    },
+    {
+      "type": "pickup",
+      "id": "fuel_cell_1",
+      "cell": [7, 5],
+      "item": "fuel_cell",
+      "count": 1
+    },
+    {
+      "type": "pickup",
+      "id": "scrap_1",
+      "cell": [4, 5],
+      "item": "scrap",
+      "count": 1
+    },
+    {
+      "type": "pickup",
+      "id": "scrap_2",
+      "cell": [1, 2],
+      "item": "scrap",
+      "count": 1
+    },
+    {
+      "type": "pickup",
+      "id": "wire_1",
+      "cell": [5, 4],
+      "item": "wire",
+      "count": 1
+    },
+    {
+      "type": "pickup",
+      "id": "scrap_3",
+      "cell": [16, 4],
+      "item": "scrap",
+      "count": 2
+    },
+    {
+      "type": "crate",
+      "id": "crate_1",
+      "cell": [12, 4]
+    },
+    {
+      "type": "crate",
+      "id": "crate_2",
+      "cell": [15, 2]
+    },
+    {
+      "type": "drone",
+      "id": "drone",
+      "cell": [16, 3],
+      "dock": "drone_dock",
+      "route": [[11, 1], [17, 1], [17, 5], [11, 5]]
+    }
+  ]
+}

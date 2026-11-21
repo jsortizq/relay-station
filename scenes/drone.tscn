@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://rsdrone00001"]
+
+[ext_resource type="Script" path="res://scripts/ai/drone.gd" id="1_drone"]
+
+[sub_resource type="CylinderShape3D" id="Shape_body"]
+height = 1.6
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="Mesh_core"]
+radius = 0.35
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_core"]
+albedo_color = Color(0.2, 0.22, 0.28, 1)
+metallic = 0.7
+roughness = 0.3
+
+[sub_resource type="TorusMesh" id="Mesh_ring"]
+inner_radius = 0.42
+outer_radius = 0.55
+
+[sub_resource type="StandardMaterial3D" id="Mat_ring"]
+albedo_color = Color(0.45, 0.48, 0.56, 1)
+metallic = 0.6
+
+[sub_resource type="SphereMesh" id="Mesh_eye"]
+radius = 0.12
+height = 0.24
+
+[node name="Drone" type="CharacterBody3D"]
+collision_layer = 16
+collision_mask = 9
+motion_mode = 1
+script = ExtResource("1_drone")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("Shape_body")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.6
+target_desired_distance = 0.7
+path_postprocessing = 1
+radius = 0.4
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Core" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("Mesh_core")
+surface_material_override/0 = SubResource("Mat_core")
+
+[node name="Ring" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("Mesh_ring")
+surface_material_override/0 = SubResource("Mat_ring")
+
+[node name="Eye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+mesh = SubResource("Mesh_eye")
+
+[node name="Beam" type="SpotLight3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.2588190, 0, -0.2588190, 0.9659258, 0, 0, 0.35)
+light_energy = 3.0
+spot_range = 9.0
+spot_angle = 40.0

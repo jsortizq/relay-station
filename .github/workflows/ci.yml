@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      GODOT_VERSION: 4.3-stable
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Godot
+        run: |
+          curl -sL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}_linux.x86_64" godot
+
+      - name: Import project (builds class cache)
+        run: ./godot --headless --path . --import
+
+      - name: Unit + 3D physics / navigation tests
+        run: ./godot --headless --path . --script res://tests/run_tests.gd
+
+      - name: Acceptance scenarios
+        run: |
+          for s in save_duplication generator_shutdown; do
+            ./godot --headless --path . --script res://tools/scenario.gd -- $s
+          done

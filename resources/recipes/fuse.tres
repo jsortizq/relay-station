@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/recipe.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = "fuse"
+output_id = "fuse"
+output_count = 1
+inputs = {
+"scrap": 2,
+"wire": 1
+}
