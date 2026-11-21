@@ -8,9 +8,6 @@ extends RefCounted
 ##    transforms, player and drone positions.
 ##  * Never save DERIVED state (which doors are open, which lights are on):
 ##    it is recomputed from the grid after loading, so it can't disagree.
-##  * Pickups are recorded by their stable level-file id, never by node
-##    name or instance id (those change every time the level is rebuilt —
-##    see tasks/bug-01).
 ##  * Every format change bumps VERSION and adds a migration step.
 
 const VERSION := 2

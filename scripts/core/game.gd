@@ -123,7 +123,7 @@ func collect(p: Props.Pickup) -> void:
 		p.count = left
 		notify("Picked up %d (inventory full)" % taken)
 		return
-	collected[p.uid] = true
+	collected[str(p.get_instance_id())] = true
 	entities.erase(p.uid)
 	p.queue_free()
 	notify("Picked up %s" % ItemDB.item(p.item_id).display_name)
@@ -132,7 +132,7 @@ func collect(p: Props.Pickup) -> void:
 func remove_collected_pickups() -> void:
 	for id in entities.keys():
 		var n = entities[id]
-		if n is Props.Pickup and collected.has(n.uid):
+		if n is Props.Pickup and collected.has(str(n.get_instance_id())):
 			entities.erase(id)
 			n.queue_free()
 
