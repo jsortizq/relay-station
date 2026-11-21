@@ -41,7 +41,8 @@ func _draw() -> void:
 	var y := 64.0
 	for o in game.objectives():
 		var done: bool = o[1]
-		_text(Vector2(28, y), ("✔ " if done else "○ ") + o[0], 14, Color("4dff7a") if done else Color("d7deea"))
+		# ASCII markers: the default font used in web builds has no ✔ / ○ glyphs.
+		_text(Vector2(28, y), ("[x] " if done else "[  ] ") + o[0], 14, Color("4dff7a") if done else Color("d7deea"))
 		y += 22
 	# toasts
 	var ty := vs.y - 120.0
