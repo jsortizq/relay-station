@@ -6,7 +6,7 @@ Station Kappa-7 is dark. Find a fuel cell, start the generator, craft a fuse to 
 
 ![Cargo bay](docs/screenshot_cargo_bay.png)
 
-> **Play:** _itch.io link here_ · **Controls:** WASD move · Shift sprint · mouse / arrows look · E use · F grab / drop · click throw · Tab inventory · K save · L load · F1 debug · R restart · Esc free the mouse
+> **Play:** [jsortizq.itch.io/relay-station](https://jsortizq.itch.io/relay-station) (runs in the browser) · **Controls:** WASD move · Shift sprint · mouse / arrows look · E use · F grab / drop · click throw · Tab inventory · K save · L load · F1 debug · R restart · Esc free the mouse
 
 ---
 
